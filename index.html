@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="box">
+      <h1>
+        Generate a
+        <span>Random Password</span>
+      </h1>
+      <div class="inp">
+        <input
+          type="text"
+          placeholder="Password"
+          id="password"
+          maxlength="30"
+        />
+        <img src="copy.png" onclick="copyPassword()" />
+      </div>
+      <div class="range">
+        <button onclick="passwordGenerator()">⚡Generate Password</button>
+        <div class="inp-1">
+          <h2 id="passwordLength">12</h2>
+          <input
+            type="range"
+            id="range"
+            min="8"
+            max="24"
+            onchange="passwordLength()"
+          />
+        </div>
+      </div>
+      <select id="select" onchange="updateCharacterType()">
+        <option value="allCase">Select Option</option>
+        <option value="uppercase">Uppercase</option>
+        <option value="lowercase">lowercase</option>
+        <option value="number">number</option>
+        <option value="upperLower">Uppercase + lowercase</option>
+        <option value="upperNumber">Uppercase + number</option>
+        <option value="lowerNumber">lowercase + number</option>
+        <option value="upperLowerNumber">Uppercase + lowercase + number</option>
+        <option value="lowerSpecial">lowercase + specialCase</option>
+        <option value="upperSpecial">Uppercase + specialCase</option>
+      </select>
+    </div>
+
+    <script>
+      const passwordBox = document.getElementById("password");
+      var displayElement = document.getElementById("passwordLength");
+      let select = document.getElementById("select");
+      console.log(typeof select.options[1].lastChild.data);
+
+      let Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let lowercase = "abcdefghijklmnopqrstuvwxyz";
+      let number = "0123456789";
+      let specialCase = "@#$%&/?!&";
+
+      let allCase = Uppercase + lowercase + number + specialCase;
+      let upperLowerNumber = Uppercase + lowercase + number;
+      let lowerSpecial = lowercase + specialCase;
+      let upperSpecial = Uppercase + specialCase;
+      let upperlower = Uppercase + lowercase;
+      let upperNumber = Uppercase + number;
+      let lowerNumber = lowercase + number;
+
+      function passwordLength() {
+        var rangeInput = document.getElementById("range");
+        var lengthValue = rangeInput.value;
+
+        displayElement.textContent = lengthValue;
+      }
+
+      function updateCharacterType() {
+        var selectedOption = select.value;
+        switch (selectedOption) {
+          case "uppercase":
+            allCase = Uppercase;
+            break;
+          case "lowercase":
+            allCase = lowercase;
+            break;
+          case "number":
+            allCase = number;
+            break;
+          case "upperLower":
+            allCase = upperlower;
+            break;
+          case "upperNumber":
+            allCase = upperNumber;
+            break;
+          case "lowerNumber":
+            allCase = lowerNumber;
+            break;
+          case "upperLowerNumber":
+            allCase = upperLowerNumber;
+            break;
+          case "lowerSpecial":
+            allCase = lowerSpecial;
+            break;
+          case "upperSpecial":
+            allCase = upperSpecial;
+            break;
+
+          default:
+            allCase = Uppercase + lowercase + number + specialCase;
+            break;
+        }
+      }
+
+      function passwordGenerator() {
+        const length = displayElement.textContent;
+        let password = "";
+        while (password.length < length) {
+          password += allCase[Math.floor(Math.random() * allCase.length)];
+        }
+        passwordBox.value = password;
+        document.querySelector(".box img").src = "copy.png";
+      }
+
+      function copyPassword() {
+        passwordBox.select();
+        document.execCommand("copy");
+        document.querySelector(".box img").src = "R.png";
+      }
+    </script>
+  </body>
+</html>
