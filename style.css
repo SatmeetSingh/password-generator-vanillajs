@@ -23,10 +23,13 @@ body {
 h1 {
   display: flex;
   flex-direction: column;
+  max-width: 280px;
 }
 
 h1 span {
   color: rgb(38, 146, 38);
+  border-bottom: 3px solid rgb(38, 146, 38);
+  padding-bottom: 10px;
 }
 
 .box input {
